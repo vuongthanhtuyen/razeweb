@@ -53,3 +53,10 @@ namespace CS_58_TichHop_EntityFramework
         }
     }
 }
+
+
+/*
+    CREATE, READ, UPDATE, DELETE (CRUD)
+    dotnet aspnet-codegenerator razorpage -m VTT.models.Article -dc VTT.models.MyBlogContent -outDir Pages/Blog -udl --referenceScriptLibraries
+
+*/

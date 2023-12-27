@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 namespace VTT.models{
+    //VTT.models.MyBlogContent
     public class MyBlogContent : DbContext
     {
+
         public MyBlogContent(DbContextOptions<MyBlogContent> options) : base(options)
         {
             
