@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using VTT.models;
 
 namespace CS_58_TichHop_EntityFramework.Pages_Blog
 {
+    [Authorize] // gioi han quyen khi chua dang nhap, khong the truy cap
     public class IndexModel : PageModel
     {
         private readonly VTT.models.MyBlogContent _context;

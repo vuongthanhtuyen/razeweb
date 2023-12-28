@@ -74,8 +74,16 @@ namespace CS_58_TichHop_EntityFramework
                 // Cấu hình đăng nhập.
                 options.SignIn.RequireConfirmedEmail = true;            // Cấu hình xác thực địa chỉ email (email phải tồn tại)
                 options.SignIn.RequireConfirmedPhoneNumber = false;     // Xác thực số điện thoại
+                options.SignIn.RequireConfirmedAccount = true;
 
             });
+            builder.Services.ConfigureApplicationCookie(options=>{
+                options.LoginPath = "/Login/";
+                options.LogoutPath = "/Logout/";
+                options.AccessDeniedPath = "/khongduoctruycap.html";
+            });
+
+
             var app = builder.Build();
 
 
