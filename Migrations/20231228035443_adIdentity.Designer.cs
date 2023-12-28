@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VTT.models;
 
@@ -11,9 +12,11 @@ using VTT.models;
 namespace CS_58_TichHop_EntityFramework.Migrations
 {
     [DbContext(typeof(MyBlogContent))]
-    partial class MyBlogContentModelSnapshot : ModelSnapshot
+    [Migration("20231228035443_adIdentity")]
+    partial class adIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,11 +176,6 @@ namespace CS_58_TichHop_EntityFramework.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("HomeAdress")
-                        .IsRequired()
-                        .HasMaxLength(400)
-                        .HasColumnType("nvarchar");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
