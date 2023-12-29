@@ -102,13 +102,13 @@ namespace CS_58_TichHop_EntityFramework.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (remoteError != null)
             {
-                ErrorMessage = $"Error from external provider: {remoteError}";
+                ErrorMessage = $"Lỗi từ dịch vụ ngoài: {remoteError}";
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
-                ErrorMessage = "Error loading external login information.";
+                ErrorMessage = "Không lấy được thông tin của dịch vụ ngoài.";
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
@@ -144,6 +144,7 @@ namespace CS_58_TichHop_EntityFramework.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             // Get the information about the user from the external login provider
             var info = await _signInManager.GetExternalLoginInfoAsync();
+
             if (info == null)
             {
                 ErrorMessage = "Error loading external login information during confirmation.";
@@ -152,6 +153,72 @@ namespace CS_58_TichHop_EntityFramework.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
+                // InputEmail
+                var registeredUser = await _userManager.FindByEmailAsync(Input.Email);
+                string externalEmail = null;
+                AppUser externalEmailUser = null;
+                if(info.Principal.HasClaim(c=> c.Type == ClaimTypes.Email)){
+                    externalEmail= info.Principal.FindFirstValue(ClaimTypes.Email);
+                }
+
+                if(externalEmail!=null)
+                {
+                    externalEmailUser = await _userManager.FindByEmailAsync(externalEmail);
+                }
+                if((registeredUser!=null)&&(externalEmailUser!=null)){
+                    if((registeredUser.Id==externalEmailUser.Id)){
+                        var resultLink = await _userManager.AddLoginAsync(registeredUser, info);
+                        if(resultLink.Succeeded){
+                            await _signInManager.SignInAsync(registeredUser,isPersistent: false);
+                            return LocalRedirect(returnUrl);
+                        }
+                    }
+                    else{
+
+                        ModelState.AddModelError(string.Empty,"Không liên kết được tài khoản, hãy liên kêt tài khoản khác");
+                        return Page();
+
+
+                    }
+                }
+                if((registeredUser!=null)&&(externalEmailUser==null)){
+                    ModelState.AddModelError(string.Empty,"Không hổ trợ liên kết với tài khoản có mail khác với email từ dịch vụ ngoài.");
+                    return Page();
+
+                }
+                if((externalEmailUser==null)&&(externalEmail==Input.Email)){
+                    var newUser = new AppUser(){
+                        UserName = externalEmail,
+                        Email = externalEmail
+                    };
+
+                    var resultNewUser = await _userManager.CreateAsync(newUser);
+                    if(resultNewUser.Succeeded)
+                     {
+                        await _userManager.AddLoginAsync(newUser,info);
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+                        await _userManager.ConfirmEmailAsync(newUser,code);
+                        
+                        await _signInManager.SignInAsync(newUser, isPersistent: false);
+
+                        return LocalRedirect(returnUrl);
+
+                    }
+                    else{
+                        ModelState.AddModelError(string.Empty,"Không tạo được tài khoản mơis.");
+                        return Page();
+
+                    }
+
+                }               
+
+
+
+
+
+                
+
+
                 var user = CreateUser();
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);

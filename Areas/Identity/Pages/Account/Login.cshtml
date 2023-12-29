@@ -3,9 +3,15 @@
 
 @{
     ViewData["Title"] = "Đăng nhập";
+    var thongBao = TempData["ErrorMessage"];
 }
 
 <h1>@ViewData["Title"]</h1>
+@if(TempData.ContainsKey("ErrorMessage")){
+
+    <partial name="/Areas/Identity/Pages/Account/_StatusMessage.cshtml" model="thongBao"/>
+
+}
 <div class="row">
     <div class="col-md-4">
         <section>
@@ -48,7 +54,7 @@
     <div class="col-md-6 col-md-offset-2">
         <section>
             <h4>
-                Sử dụng dịch vụ ngoài (Google, Twitter, Facebook,...) để đăng nhập
+                Sử dụng dịch vụ ngoài 
             </h4>
             <hr />
             @{
@@ -67,7 +73,7 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins!)
                                 {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Sử dụng @provider.DisplayName account">@provider.DisplayName</button>
                                 }
                             </p>
                         </div>

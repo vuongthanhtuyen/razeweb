@@ -83,6 +83,29 @@ namespace CS_58_TichHop_EntityFramework
                 options.AccessDeniedPath = "/khongduoctruycap.html";
             });
 
+            // add đăng nhập google
+
+            builder.Services.AddAuthentication()
+                .AddGoogle(options=>{
+                    var gconfig = configuration.GetSection("Authentication:Google");
+                    options.ClientId = gconfig["ClientId"];
+                    options.ClientSecret = gconfig["ClientSecret"];
+                    //http://localhost:5224/dang-nhap-tu-google
+                    options.CallbackPath = "/dang-nhap-tu-google";
+
+                })
+                .AddFacebook(options=>{
+                    var fconfig = configuration.GetSection("Authentication:Facebook");
+#pragma warning disable CS8601 // Possible null reference assignment.
+                    options.AppId = fconfig["AppId"];
+#pragma warning restore CS8601 // Possible null reference assignment.
+                    options.AppSecret = fconfig["AppSecret"];
+                    //http://localhost:5224/dang-nhap-tu-google
+                    options.CallbackPath = "/dang-nhap-tu-facebook";
+
+                });
+        
+
 
             var app = builder.Build();
 
@@ -128,6 +151,9 @@ namespace CS_58_TichHop_EntityFramework
 
     // Phát sinh code cho Identity 
     dotnet aspnet-codegenerator identity -dc VTT.models.MyBlogContent
+
+    
+    http://localhost:5224/dang-nhap-tu-google
 
 */
 
