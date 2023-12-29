@@ -36,7 +36,9 @@ namespace CS_58_TichHop_EntityFramework.Areas.Identity.Pages.Account
             {
                 // This needs to be a redirect so that the browser performs a new
                 // request and the identity for the user gets updated.
-                return RedirectToPage();
+                // return RedirectToPage();
+                returnUrl = Url.Content("/"); // Đăng xuất 1 cái là chuyển về trang chủ ngay.
+                return LocalRedirect(returnUrl);
             }
         }
     }

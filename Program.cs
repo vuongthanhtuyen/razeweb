@@ -63,7 +63,7 @@ namespace CS_58_TichHop_EntityFramework
 
                 // Cấu hình Lockout - khóa user
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes (5); // Khóa 5 phút
-                options.Lockout.MaxFailedAccessAttempts = 5; // Thất bại 5 lầ thì khóa
+                options.Lockout.MaxFailedAccessAttempts = 3; // Thất bại 5 lầ thì khóa
                 options.Lockout.AllowedForNewUsers = true;
 
                 // Cấu hình về User.
