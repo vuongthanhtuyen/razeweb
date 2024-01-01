@@ -155,5 +155,10 @@ namespace CS_58_TichHop_EntityFramework
     
     http://localhost:5224/dang-nhap-tu-google
 
+    // Phát sinh code cho các trang .cs, .cshtml
+    dotnet new page -o Areas\Admin\Pages\Role -n Index -p:n App.Admin.Role
+    dotnet new page -o Areas\Admin\Pages\Role -n Create -p:n App.Admin.Role
+    dotnet new page -o Areas\Admin\Pages\Role -n Edit -p:n App.Admin.Role
+
 */
 
