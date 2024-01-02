@@ -14,9 +14,9 @@ namespace CS_58_TichHop_EntityFramework.Pages_Blog
     [Authorize] // gioi han quyen khi chua dang nhap, khong the truy cap
     public class IndexModel : PageModel
     {
-        private readonly VTT.models.MyBlogContent _context;
+        private readonly VTT.models.AppDbContext _context;
 
-        public IndexModel(VTT.models.MyBlogContent context)
+        public IndexModel(VTT.models.AppDbContext context)
         {
             _context = context;
         }

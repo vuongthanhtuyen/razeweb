@@ -15,7 +15,7 @@ namespace App.Admin.Role
 
     public class CreateModel : RolePageModel
     {
-        public CreateModel(RoleManager<IdentityRole> roleManager, MyBlogContent myBlogContext) : base(roleManager, myBlogContext)
+        public CreateModel(RoleManager<IdentityRole> roleManager, AppDbContext myBlogContext) : base(roleManager, myBlogContext)
         {
 
         }

@@ -13,11 +13,11 @@ namespace CS_58_TichHop_EntityFramework.Pages_Blog
 {
     public class EditModel : PageModel
     {
-        private readonly VTT.models.MyBlogContent _context;
+        private readonly VTT.models.AppDbContext _context;
 
         private readonly IAuthorizationService _authorizationService;
 
-        public EditModel(VTT.models.MyBlogContent context,IAuthorizationService authorizationService)
+        public EditModel(VTT.models.AppDbContext context,IAuthorizationService authorizationService)
         {
             _context = context;
             _authorizationService = authorizationService;

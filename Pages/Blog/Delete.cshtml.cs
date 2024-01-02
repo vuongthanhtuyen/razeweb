@@ -11,9 +11,9 @@ namespace CS_58_TichHop_EntityFramework.Pages_Blog
 {
     public class DeleteModel : PageModel
     {
-        private readonly VTT.models.MyBlogContent _context;
+        private readonly VTT.models.AppDbContext _context;
 
-        public DeleteModel(VTT.models.MyBlogContent context)
+        public DeleteModel(VTT.models.AppDbContext context)
         {
             _context = context;
         }

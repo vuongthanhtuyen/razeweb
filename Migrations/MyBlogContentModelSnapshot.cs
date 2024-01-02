@@ -10,7 +10,7 @@ using VTT.models;
 
 namespace CS_58_TichHop_EntityFramework.Migrations
 {
-    [DbContext(typeof(MyBlogContent))]
+    [DbContext(typeof(AppDbContext))]
     partial class MyBlogContentModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

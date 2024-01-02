@@ -11,9 +11,9 @@ namespace CS_58_TichHop_EntityFramework.Pages_Blog
 {
     public class CreateModel : PageModel
     {
-        private readonly VTT.models.MyBlogContent _context;
+        private readonly VTT.models.AppDbContext _context;
 
-        public CreateModel(VTT.models.MyBlogContent context)
+        public CreateModel(VTT.models.AppDbContext context)
         {
             _context = context;
         }

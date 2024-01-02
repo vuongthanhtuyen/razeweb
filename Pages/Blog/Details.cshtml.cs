@@ -13,9 +13,9 @@ namespace CS_58_TichHop_EntityFramework.Pages_Blog
     [Authorize(Policy ="InGenZ")] // sinh nam 1997 - 2012
     public class DetailsModel : PageModel
     {
-        private readonly VTT.models.MyBlogContent _context;
+        private readonly VTT.models.AppDbContext _context;
 
-        public DetailsModel(VTT.models.MyBlogContent context)
+        public DetailsModel(VTT.models.AppDbContext context)
         {
             _context = context;
         }

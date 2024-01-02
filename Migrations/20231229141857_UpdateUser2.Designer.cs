@@ -11,7 +11,7 @@ using VTT.models;
 
 namespace CS_58_TichHop_EntityFramework.Migrations
 {
-    [DbContext(typeof(MyBlogContent))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20231229141857_UpdateUser2")]
     partial class UpdateUser2
     {

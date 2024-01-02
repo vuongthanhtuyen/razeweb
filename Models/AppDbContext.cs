@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 namespace VTT.models{
     //VTT.models.MyBlogContent
-    public class MyBlogContent : IdentityDbContext<AppUser>
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
 
-        public MyBlogContent(DbContextOptions<MyBlogContent> options) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
             
         }

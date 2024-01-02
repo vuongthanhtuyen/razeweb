@@ -17,7 +17,7 @@ namespace App.Admin.Role
 
     public class AddRoleClaimModel : RolePageModel
     {
-        public AddRoleClaimModel(RoleManager<IdentityRole> roleManager, MyBlogContent myBlogContext) : base(roleManager, myBlogContext)
+        public AddRoleClaimModel(RoleManager<IdentityRole> roleManager, AppDbContext myBlogContext) : base(roleManager, myBlogContext)
         {
 
         }

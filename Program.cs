@@ -34,7 +34,7 @@ namespace CS_58_TichHop_EntityFramework
                             .Build();
             // lien ket databas
             var connectionString = configuration.GetConnectionString("MyblogContext");
-            builder.Services.AddDbContext<MyBlogContent>(options =>
+            builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(connectionString); // Cấu hình kết nối đến cơ sở dữ liệu của bạn
             });
@@ -50,7 +50,7 @@ namespace CS_58_TichHop_EntityFramework
             //     .AddEntityFrameworkStores<MyBlogContent>()
             //     .AddDefaultTokenProviders();
             builder.Services.AddIdentity<AppUser,IdentityRole>()
-                .AddEntityFrameworkStores<MyBlogContent>()
+                .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
                 
 
