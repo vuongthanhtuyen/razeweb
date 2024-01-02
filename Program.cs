@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using App.Security.Requirements;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CS_58_TichHop_EntityFramework
 {
@@ -50,6 +52,7 @@ namespace CS_58_TichHop_EntityFramework
             builder.Services.AddIdentity<AppUser,IdentityRole>()
                 .AddEntityFrameworkStores<MyBlogContent>()
                 .AddDefaultTokenProviders();
+                
 
 
             builder.Services.Configure<IdentityOptions> (options => {
@@ -108,19 +111,30 @@ namespace CS_58_TichHop_EntityFramework
             builder.Services.AddAuthorization(option => {
                 option.AddPolicy("AllowEditRole", policyBuider =>{
                     policyBuider.RequireAuthenticatedUser();
-                    policyBuider.RequireRole("Admin");
-                    policyBuider.RequireRole("Editor");
-
-
-
-                    // policyBuider.RequireClaim("")
-
-
+                    policyBuider.RequireClaim("canedit", "user");
+                    // policyBuider.Requirements.Add();
 
 
                 });
-            });
+                option.AddPolicy("InGenZ", policyBuider =>{
+                    policyBuider.RequireAuthenticatedUser();
+                    // policyBuider.RequireClaim("canedit", "user");
+                    policyBuider.Requirements.Add(new GenZRequirement());
 
+
+                });
+
+                option.AddPolicy("ShowAdminMenu", pb =>{
+                    pb.RequireRole("Admin");
+                });
+
+                option.AddPolicy("CanUpdateArticle", builder => {
+                    builder.Requirements.Add(new ArticleUpdateRequirement()); 
+                });                      
+
+            });
+            builder.Services.AddTransient<IAuthorizationHandler, AppAuthorizationHandler>();
+ 
 
             var app = builder.Build();
 

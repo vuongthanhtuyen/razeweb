@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using VTT.models;
 
 namespace CS_58_TichHop_EntityFramework.Pages_Blog
 {
+    [Authorize(Policy ="InGenZ")] // sinh nam 1997 - 2012
     public class DetailsModel : PageModel
     {
         private readonly VTT.models.MyBlogContent _context;

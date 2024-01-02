@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,9 +15,12 @@ namespace CS_58_TichHop_EntityFramework.Pages_Blog
     {
         private readonly VTT.models.MyBlogContent _context;
 
-        public EditModel(VTT.models.MyBlogContent context)
+        private readonly IAuthorizationService _authorizationService;
+
+        public EditModel(VTT.models.MyBlogContent context,IAuthorizationService authorizationService)
         {
             _context = context;
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
@@ -51,7 +55,16 @@ namespace CS_58_TichHop_EntityFramework.Pages_Blog
 
             try
             {
-                await _context.SaveChangesAsync();
+                // kiểm tra quyền cập nhật
+                var canupdate =  await _authorizationService.AuthorizeAsync(this.User, Article, "CanUpdateArticle");
+                if  (canupdate.Succeeded)
+                {
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    return Content("Không được quyền cập nhật");
+                }           
             }
             catch (DbUpdateConcurrencyException)
             {
