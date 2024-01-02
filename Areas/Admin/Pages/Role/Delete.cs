@@ -11,7 +11,7 @@ using VTT.models;
 
 namespace App.Admin.Role
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy="AllowEditRole")]
 
     public class DeleteModel : RolePageModel
     {

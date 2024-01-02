@@ -96,15 +96,30 @@ namespace CS_58_TichHop_EntityFramework
                 })
                 .AddFacebook(options=>{
                     var fconfig = configuration.GetSection("Authentication:Facebook");
-#pragma warning disable CS8601 // Possible null reference assignment.
+                        #pragma warning disable CS8601 // Possible null reference assignment.
                     options.AppId = fconfig["AppId"];
-#pragma warning restore CS8601 // Possible null reference assignment.
+                        #pragma warning restore CS8601 // Possible null reference assignment.
                     options.AppSecret = fconfig["AppSecret"];
                     //http://localhost:5224/dang-nhap-tu-google
                     options.CallbackPath = "/dang-nhap-tu-facebook";
 
                 });
-        
+            
+            builder.Services.AddAuthorization(option => {
+                option.AddPolicy("AllowEditRole", policyBuider =>{
+                    policyBuider.RequireAuthenticatedUser();
+                    policyBuider.RequireRole("Admin");
+                    policyBuider.RequireRole("Editor");
+
+
+
+                    // policyBuider.RequireClaim("")
+
+
+
+
+                });
+            });
 
 
             var app = builder.Build();
@@ -144,6 +159,10 @@ namespace CS_58_TichHop_EntityFramework
         - Athentication: Xác định danh tính -> login Logout
         - Quản lý user: Sign Up, User, Role...
 
+    *Policy-based authorization
+    * Claims-based authorization:
+        Claims -> đặc tính, tính chất của đối tượng (User)
+
 
 
         /Identity/Account/Login
@@ -158,7 +177,7 @@ namespace CS_58_TichHop_EntityFramework
     // Phát sinh code cho các trang .cs, .cshtml
     dotnet new page -o Areas\Admin\Pages\Role -n Index -p:n App.Admin.Role
     dotnet new page -o Areas\Admin\Pages\Role -n Create -p:n App.Admin.Role
-    dotnet new page -o Areas\Admin\Pages\Role -n Edit -p:n App.Admin.Role
+    dotnet new page -o Areas\Admin\Pages\User -n EditUserRoleClaim -p:n App.Admin.Role
 
 */
 
