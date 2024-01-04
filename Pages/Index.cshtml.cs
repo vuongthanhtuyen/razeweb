@@ -7,9 +7,9 @@ namespace CS_58_TichHop_EntityFramework.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        private readonly MyBlogContent myBlogContent;
+        private readonly AppDbContext myBlogContent;
 
-        public IndexModel(ILogger<IndexModel> logger, MyBlogContent _myBlogContent)
+        public IndexModel(ILogger<IndexModel> logger, AppDbContext _myBlogContent)
         {
             _logger = logger;
             myBlogContent = _myBlogContent;

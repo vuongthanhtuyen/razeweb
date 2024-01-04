@@ -1,0 +1,19 @@
+﻿@page "/logout"
+@model LogoutModel
+@{
+    ViewData["Title"] = "Đăng xuất ";
+}
+
+<header>
+    <h1>@ViewData["Title"]</h1>
+    @{
+        if (User.Identity?.IsAuthenticated ?? false)
+        {
+
+        }
+        else
+        {
+            <p>Bạn đã đăng xuất thành công.</p>
+        }
+    }
+</header>
